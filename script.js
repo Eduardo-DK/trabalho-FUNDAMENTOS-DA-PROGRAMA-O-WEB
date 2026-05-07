@@ -1,42 +1,68 @@
-// Função para validar o formulário
+/* --- PARTE 1: VALIDAÇÃO E ENVIO (contato.html) --- */
+
 function processarEnvio(event) {
-    event.preventDefault(); // Impede a página de recarregar
+    event.preventDefault(); // Impede o recarregamento da página para mostrar o alerta
 
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const mensagem = document.getElementById('mensagem').value;
     
-    /* Validação de campos vazios */
-    if (nome === '' || email === '' || mensagem === '') {
-        alert("Por favor, preencha todos os campos obrigatórios.");
+    // Validação de campos vazios e formato de e-mail (Exigência do trabalho)
+    if (nome === '' || mensagem === '') {
+        alert("Por favor, preencha todos os campos.");
         return;
     }
 
-    // Simulação de envio
+    if (!email.includes('@') || !email.includes('.')) {
+        alert("Por favor, insira um e-mail válido.");
+        return;
+    }
+
+    // Simulação de envio com mensagem de confirmação
     alert("Mensagem enviada com sucesso! Obrigado, " + nome);
     
-    /* Limpeza dos campos */ 
+    // Limpeza dos campos após o envio
     document.getElementById('meuFormulario').reset();
 }
 
-// Seleciona o botão e o corpo da página
+// Conecta a função ao formulário se ele existir na página atual
+const formulario = document.getElementById('meuFormulario');
+if (formulario) {
+    formulario.addEventListener('submit', processarEnvio);
+}
+
+
+/* --- PARTE 2: TEMA CLARO/ESCURO (Persistente) --- */
+
 const btnTema = document.getElementById('botao-tema');
 const corpo = document.body;
 
-// 1. Ao carregar a página, verifica se o usuário já tinha escolhido o tema escuro
-if (localStorage.getItem('tema') === 'escuro') {
-    corpo.classList.add('dark-mode');
+// Função para atualizar o texto do botão (ajuda na interação visual)
+function atualizarTextoBotao() {
+    if (corpo.classList.contains('dark-mode')) {
+        btnTema.innerHTML = "☀️ Modo Claro";
+    } else {
+        btnTema.innerHTML = "🌙 Modo Escuro";
+    }
 }
 
-// Adiciona o evento de clique ao botão
-btnTema.addEventListener('click', () => {
-    // Alterna a classe dark-mode
-    corpo.classList.toggle('dark-mode');
+// Verifica a preferência salva no LocalStorage ao carregar qualquer uma das 4 páginas
+if (localStorage.getItem('tema') === 'escuro') {
+    corpo.classList.add('dark-mode');
+    atualizarTextoBotao();
+}
 
-    // Salva a preferência no LocalStorage para não perder ao recarregar
-    if (corpo.classList.contains('dark-mode')) {
-        localStorage.setItem('tema', 'escuro');
-    } else {
-        localStorage.setItem('tema', 'claro');
-    }
-});
+// Evento para alternar o tema ao clicar no botão do menu
+if (btnTema) {
+    btnTema.addEventListener('click', () => {
+        corpo.classList.toggle('dark-mode');
+        atualizarTextoBotao();
+
+        // Salva a escolha para persistir entre as páginas
+        if (corpo.classList.contains('dark-mode')) {
+            localStorage.setItem('tema', 'escuro');
+        } else {
+            localStorage.setItem('tema', 'claro');
+        }
+    });
+}
