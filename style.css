@@ -36,14 +36,22 @@ main {
     line-height: 1.6; /* Melhora a leitura do texto */
 }
 
-/* Cores padrão (Tema Claro) */
+/* Estilo padrão (Claro) */
 body {
-    background-color: white;
-    color: black;
+    background-color: #ffffff;
+    color: #333333;
+    transition: 0.3s; /* Deixa a mudança suave */
 }
 
-/* Classe que o JS vai aplicar */
-body.dark-theme {
+/* Estilo Escuro */
+body.dark-mode {
     background-color: #1a1a1a;
-    color: #f0f0f0;
+    color: #ffffff;
+}
+
+/* Estilo do botão (coloque no seu menu) */
+#botao-tema {
+    cursor: pointer;
+    padding: 2px 8px;
+    display: flex;
 }
