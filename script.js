@@ -1,7 +1,7 @@
 /* --- PARTE 1: VALIDAÇÃO E ENVIO (contato.html) --- */
 
-function processarEnvio(event) {
-    event.preventDefault(); // Impede o recarregamento da página para mostrar o alerta
+function processarEnvio(event) { /* Função para processar o envio do formulário */
+    event.preventDefault(); /* Impede o recarregamento da página para mostrar o alerta */
 
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
@@ -13,15 +13,15 @@ function processarEnvio(event) {
         return;
     }
 
-    if (!email.includes('@') || !email.includes('.')) {
+    if (!email.includes('@') || !email.includes('.')) { /* Validação do formato do e-mail */
         alert("Por favor, insira um e-mail válido.");
         return;
     }
 
-    // Simulação de envio com mensagem de confirmação
+     /* Simulação de envio com mensagem de confirmação */
     alert("Mensagem enviada com sucesso! Obrigado, " + nome);
     
-    // Limpeza dos campos após o envio
+     /* Limpeza dos campos após o envio */
     document.getElementById('meuFormulario').reset();
 }
 
